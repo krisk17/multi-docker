@@ -3,20 +3,20 @@ service:
   - docker
 
 before_install:
-  - docker build -t krishnak/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t open2nix/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run krishnak/react-test npm test -- --coverage
+  - docker run open2nix/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t krishnak/multi-client ./client
-  - docker build -t krishnak/multi-nginx ./nginx
-  - docker build -t krishnak/multi-server ./server
-  - docker build -t krishnak/multi-worker ./worker
-# Log in to the docker CLI test
+  - docker build -t open2nix/multi-client ./client
+  - docker build -t open2nix/multi-nginx ./nginx
+  - docker build -t open2nix/multi-server ./server
+  - docker build -t open2nix/multi-worker ./worker
+# Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Take those images and push them to docker hub
-  - docker push krishnak/multi-client
-  - docker push krishnak/multi-nginx
-  - docker push krishnak/multi-server
-  - docker push krishnak/multi-worker
+  - docker push open2nix/multi-client
+  - docker push open2nix/multi-nginx
+  - docker push open2nix/multi-server
+  - docker push open2nix/multi-worker
